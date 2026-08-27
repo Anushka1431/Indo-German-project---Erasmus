@@ -1,6 +1,7 @@
-pandas 
+pandas
+openpyxl
+numpy
 gurobipy
-math
 odfpy
 matplotlib
 seaborn

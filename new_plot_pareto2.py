@@ -1,35 +1,39 @@
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
 # ==========================================
-# 1. SETUP: INPUT FILES
+# 1. SETUP: INPUT / OUTPUT LOCATIONS
 # ==========================================
+CSV_DIR = "outputs/pareto_csv"
+PLOTS_DIR = "outputs/plots"
+
 files = {
     "A": {
         "name": "Scenario A: Linear (Baseline)",
         "color": "#d62728", # Red
-        "cost_min_csv": "Pareto_Linear_Like_CostMin.csv",
-        "env_min_csv":  "Pareto_Linear_Like_EnvMin.csv"
+        "cost_min_csv": f"{CSV_DIR}/Pareto_Linear_Like_CostMin.csv",
+        "env_min_csv":  f"{CSV_DIR}/Pareto_Linear_Like_EnvMin.csv"
     },
     "B": {
         "name": "Scenario B: Industrial Refurb",
         "color": "#1f77b4", # Blue
-        "cost_min_csv": "Pareto_Industrial_Refurb_CostMin.csv",
-        "env_min_csv":  "Pareto_Industrial_Refurb_EnvMin.csv"
+        "cost_min_csv": f"{CSV_DIR}/Pareto_Industrial_Refurb_CostMin.csv",
+        "env_min_csv":  f"{CSV_DIR}/Pareto_Industrial_Refurb_EnvMin.csv"
     },
     "C": {
         "name": "Scenario C: Consumer Reuse",
         "color": "#2ca02c", # Green
-        "cost_min_csv": "Pareto_Consumer_Reuse_CostMin.csv",
-        "env_min_csv":  "Pareto_Consumer_Reuse_EnvMin.csv"
+        "cost_min_csv": f"{CSV_DIR}/Pareto_Consumer_Reuse_CostMin.csv",
+        "env_min_csv":  f"{CSV_DIR}/Pareto_Consumer_Reuse_EnvMin.csv"
     },
     "D": {
         "name": "Scenario D: Ideal Balanced Circular",
         "color": "#9467bd", # Purple
-        "cost_min_csv": "Pareto_Ideal_Balanced_Circular_CostMin.csv",
-        "env_min_csv":  "Pareto_Ideal_Balanced_Circular_EnvMin.csv"
+        "cost_min_csv": f"{CSV_DIR}/Pareto_Ideal_Balanced_Circular_CostMin.csv",
+        "env_min_csv":  f"{CSV_DIR}/Pareto_Ideal_Balanced_Circular_EnvMin.csv"
     }
 }
 
@@ -86,8 +90,9 @@ def plot_perspective_env_on_x(data):
     plt.legend(fontsize=11)
     plt.grid(True, linestyle='--', alpha=0.6)
     
-    plt.savefig("Comparison_1_Env_on_X.png", dpi=300)
-    print("Saved: Comparison_1_Env_on_X.png")
+    out_path = f"{PLOTS_DIR}/Comparison_1_Env_on_X.png"
+    plt.savefig(out_path, dpi=300)
+    print(f"Saved: {out_path}")
 
 
 def plot_perspective_cost_on_x(data):
@@ -119,11 +124,13 @@ def plot_perspective_cost_on_x(data):
     plt.legend(fontsize=11)
     plt.grid(True, linestyle='--', alpha=0.6)
     
-    plt.savefig("Comparison_2_Cost_on_X.png", dpi=300)
-    print("Saved: Comparison_2_Cost_on_X.png")
+    out_path = f"{PLOTS_DIR}/Comparison_2_Cost_on_X.png"
+    plt.savefig(out_path, dpi=300)
+    print(f"Saved: {out_path}")
 
 if __name__ == "__main__":
     sns.set_style("whitegrid")
+    os.makedirs(PLOTS_DIR, exist_ok=True)
     data = load_data()
     
     if data:
